@@ -10,19 +10,32 @@ app.use(cors());
 app.use(express.json());
 
 const dbPath = path.join(__dirname, 'database.sqlite');
-const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
+const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
         console.error('Error opening database', err.message);
     } else {
         console.log('Connected to the SQLite database.');
+        db.run("PRAGMA journal_mode = WAL;");
+        db.run("PRAGMA synchronous = NORMAL;");
+        db.run("PRAGMA cache_size = -64000;"); // 64MB cache
+        db.run("PRAGMA temp_store = MEMORY;");
     }
 });
 
+const cache = new Map();
+
 const query = (sql, params = []) => {
     return new Promise((resolve, reject) => {
+        const cacheKey = sql + JSON.stringify(params);
+        if (cache.has(cacheKey)) {
+            return resolve(cache.get(cacheKey));
+        }
         db.all(sql, params, (err, rows) => {
             if (err) reject(err);
-            else resolve(rows);
+            else {
+                cache.set(cacheKey, rows);
+                resolve(rows);
+            }
         });
     });
 };
