@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const dbUrl = process.env.DATABASE_URL || 'postgresql://postgres:znra432fjzmmgqam@db.lrssqoddlunftocpkytj.supabase.co:5432/postgres';
+const dbUrl = process.env.DATABASE_URL || 'postgresql://postgres.lrssqoddlunftocpkytj:znra432fjzmmgqam@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres';
 const pool = new Pool({
     connectionString: dbUrl,
     // Add SSL for Supabase connection

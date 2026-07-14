@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const { Client } = require('pg');
 const path = require('path');
 
-const DB_URL = 'postgresql://postgres:znra432fjzmmgqam@db.lrssqoddlunftocpkytj.supabase.co:5432/postgres';
+const DB_URL = 'postgresql://postgres.lrssqoddlunftocpkytj:znra432fjzmmgqam@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres';
 
 async function migrate() {
     console.log('Connecting to Supabase Postgres...');
