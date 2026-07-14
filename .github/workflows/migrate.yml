@@ -1,0 +1,30 @@
+name: Migrate to Supabase
+
+on:
+  workflow_dispatch:
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm install pg sqlite3
+
+      - name: Unzip Database
+        run: |
+          cd backend
+          unzip database.zip
+
+      - name: Run Migration
+        run: |
+          cd backend
+          node migrate.js

@@ -1,0 +1,12 @@
+{
+  "name": "ayam-serayu-bi-root",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "pg": "^8.13.3"
+  }
+}
