@@ -11,15 +11,8 @@ const dbUrl = process.env.DATABASE_URL || 'postgresql://postgres.lrssqoddlunftoc
 const pool = new Pool({
     connectionString: dbUrl,
     // Add SSL for Supabase connection
-    ssl: { rejectUnauthorized: false }
-});
-
-pool.connect((err) => {
-    if (err) {
-        console.error('Error opening PostgreSQL database', err.message);
-    } else {
-        console.log('Connected to the Supabase database.');
-    }
+    ssl: { rejectUnauthorized: false },
+    max: 1 // Crucial for serverless to prevent connection exhaustion
 });
 
 const query = async (sql, params = []) => {
