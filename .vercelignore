@@ -1,0 +1,6 @@
+backend/
+*.sqlite
+*.zip
+.git
+.github
+*.log
